@@ -249,23 +249,11 @@ def _(judged, mo, n_posts, set_i):
             set_i(int(rows["#"].iloc[0])) if rows is not None and len(rows) else None
         ),
     )
-
-    mo.vstack(
-        [
-            mo.hstack(
-                [prev_post, next_post],
-                justify="start",
-                gap=1,
-                align="center",
-            ),
-            picker,
-        ]
-    )
-    return
+    return next_post, picker, prev_post
 
 
 @app.cell
-def _(get_i, judged, mo):
+def _(get_i, judged, mo, next_post, picker, prev_post):
     VERDICT_COLORS = {
         "NTA": "#2a9d8f",
         "YTA": "#d7263d",
@@ -304,7 +292,7 @@ def _(get_i, judged, mo):
     _row = judged.iloc[get_i()]
     _agreed = _row["jev"] == _row["reddit"]
 
-    mo.Html(
+    _panel = mo.Html(
         GAVEL_CSS
         + f'''
         <div style="display:flex;gap:2rem;align-items:flex-start;flex-wrap:wrap">
@@ -324,6 +312,19 @@ def _(get_i, judged, mo):
                  white-space:pre-wrap">{_row["post_content"]}</div>
           </div>
         </div>'''
+    )
+
+    mo.vstack(
+        [
+            mo.hstack(
+                [prev_post, next_post],
+                justify="start",
+                gap=1,
+                align="center",
+            ),
+            picker,
+            _panel,
+        ]
     )
     return
 
