@@ -3,3 +3,5 @@ __pycache__/
 *.py[cod]
 data/
 __marimo__/
+tags
+.env

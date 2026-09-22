@@ -18,9 +18,6 @@ notebook:
 kaggle-auth:
 	uv run kaggle auth login
 
-download-titanic:
-	uv run src/download.py -c titanic
-
 # Download the AITA labeled posts dataset from Hugging Face into data/aita/
 download-aita:
 	uv run src/download.py -d nicoco404/AITA_labeled_posts -n aita
